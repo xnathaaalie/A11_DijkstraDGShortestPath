@@ -1,0 +1,85 @@
+package A11_DijkstraDGShortestPath;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ListGraph implements Graph {
+
+	private ArrayList<WeightedEdge>[] graph;
+	private int numVertices;
+	private boolean directed;
+
+	@SuppressWarnings("unchecked")
+	public ListGraph(int numVertices, boolean directed) {
+		graph = new ArrayList[numVertices];
+		for (int i = 0; i < numVertices; i++)
+			graph[i] = new ArrayList<WeightedEdge>();
+		this.numVertices = numVertices;
+		this.directed = directed;
+	}
+
+	@Override
+	public int numVertices() {
+		return numVertices;
+	}
+
+	@Override
+	public boolean isDirected() {
+		return directed;
+	}
+
+	@Override
+	public boolean hasEdge(int u, int v) {
+		WeightedEdge pv = findEdge(u, v);
+		return pv != null;
+	}
+
+	@Override
+	public int getEdgeWeight(int u, int v) {
+		WeightedEdge pv = findEdge(u, v);
+		return pv.weight;
+	}
+
+	@Override
+	public void addEdge(int u, int v) {
+		addEdge(u, v, 1);
+	}
+
+	@Override
+	public void addEdge(int u, int v, int weight) {
+		graph[u].add(new WeightedEdge(u, v, weight));
+		if (!directed) {
+			graph[v].add(new WeightedEdge(v, u, weight));
+		}
+	}
+
+	private WeightedEdge findEdge(int u, int v) {
+		for (WeightedEdge we : graph[u]) {
+			if (we.to_vertex == v) {
+				return we;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void removeEdge(int u, int v) {
+		// TODO
+	}
+
+	@Override
+	public List<WeightedEdge> getEdges(int v) {
+		return graph[v];
+	}
+
+	/* Kante mit charge erstellen */
+	@Override
+	public void addEdge(int u, int v, int weight, boolean charge) {
+		graph[u].add(new WeightedEdge(u, v, weight, charge));
+
+		// Bei ungerichtet die selbe Kante in Gegenerichtung einf�gen
+		if (!directed)
+			graph[v].add(new WeightedEdge(v, u, weight, charge));
+
+	}
+}
