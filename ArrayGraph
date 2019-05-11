@@ -1,0 +1,63 @@
+package A11_DijkstraDGShortestPath;
+
+import java.util.List;
+
+public class ArrayGraph implements Graph {
+
+	private int[][] graph;
+	private int numVertices;
+	private boolean directed;
+
+	public ArrayGraph(int numVertices, boolean directed) {
+		graph = new int[numVertices][numVertices];
+		this.numVertices = numVertices;
+		this.directed = directed;
+	}
+
+	@Override
+	public int numVertices() {
+		return numVertices;
+	}
+
+	@Override
+	public boolean isDirected() {
+		return directed;
+	}
+
+	@Override
+	public boolean hasEdge(int u, int v) {
+		return (graph[u][v] > 0);
+	}
+
+	@Override
+	public int getEdgeWeight(int u, int v) {
+		return graph[u][v];
+	}
+
+	@Override
+	public void addEdge(int u, int v) {
+		addEdge(u, v, 1);
+	}
+
+	@Override
+	public void addEdge(int u, int v, int weight) {
+		// TODO
+	}
+
+	@Override
+	public void removeEdge(int u, int v) {
+		// TODO
+	}
+
+	@Override
+	public List<WeightedEdge> getEdges(int v) {
+		// TODO
+		return null;
+	}
+
+	@Override
+	public void addEdge(int u, int v, int weight, boolean charge) {
+		// TODO Auto-generated method stub
+
+	}
+}
